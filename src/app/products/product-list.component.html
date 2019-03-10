@@ -6,7 +6,8 @@
         <div class="row">
             <div class="col-md-2">Filter by:</div>
             <div class="col-md-4">
-                <input type="text" [(ngModel)]='listFilter'/>
+                <input type="text"
+                       [(ngModel)]='listFilter' />
             </div>
         </div>
         <div class="row">
@@ -15,11 +16,13 @@
             </div>
         </div>
         <div class="table-responsive">
-            <table class='table' *ngIf='products && products.length'>
+            <table class='table'
+                   *ngIf='products && products.length'>
                 <thead>
                     <tr>
                         <th>
-                            <button class='btn btn-primary' (click)='toggleImage()'>
+                            <button class='btn btn-primary'
+                                    (click)='toggleImage()'>
                                 {{ showImage ? 'Hide' : 'Show' }} Image
                             </button>
                         </th>
@@ -34,15 +37,15 @@
                     <tr *ngFor='let prod of products'>
                         <td>
                             <img *ngIf='showImage'
-                                [src]='prod.imageUrl' 
-                                [title]='prod.productName'
-                                [style.width.px]='imageWidth' 
-                                [style.margin.px]='imageMargin' />
+                                 [src]='prod.imageUrl'
+                                 [title]='prod.productName'
+                                 [style.width.px]='imageWidth'
+                                 [style.margin.px]='imageMargin' />
                         </td>
                         <td>{{prod.productName}}</td>
-                        <td>{{prod.productCode}}</td>
+                        <td>{{prod.productCode | lowercase }}</td>
                         <td>{{prod.releaseDate}}</td>
-                        <td>{{prod.price}}</td>
+                        <td>{{prod.price | currency:'USD':'symbol':'1.2-2'}}</td>
                         <td>{{prod.starRating}}</td>
                     </tr>
                 </tbody>
