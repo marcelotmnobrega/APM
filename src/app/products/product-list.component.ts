@@ -9,12 +9,31 @@ import { IProduct } from './product';
   styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit {
-
   pageTitle: string = 'Product List';
   imageWidth: number = 50;
   imageMargin: number = 2;
   showImage: boolean = false;
-  listFilter: string = 'cart';
+  filteredProducts: IProduct[];
+
+  //prop
+  _filterCriteria: string;
+  get filterCriteria(): string {
+    return this._filterCriteria;
+  }
+  set filterCriteria(value: string) {
+    this._filterCriteria = value;
+    this.filteredProducts = this.filterCriteria ? this.performFilter(this.filterCriteria) : this.products;
+  }
+
+  constructor() {
+    this.filteredProducts = this.products;
+    this.filterCriteria = 'cart';
+  }
+
+  performFilter(filterCriteria: string): IProduct[] {
+    return this.products.filter((product: IProduct) => product.productName.toLocaleLowerCase().indexOf(filterCriteria.toLocaleLowerCase()) !== -1);
+  }
+
   products: IProduct[] =
     [
       {
